@@ -1,56 +1,40 @@
 # Tiny Tapeout project information
 project:
-  title:        ""      # Project title
-  author:       ""      # Your name
-  discord:      ""      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
-  description:  ""      # One line description of what your project does
-  language:     "Verilog" # other examples include SystemVerilog, Amaranth, VHDL, etc
-  clock_hz:     0       # Clock frequency in Hz (or 0 if not applicable)
-
-  # How many tiles your design occupies? A single tile is about 167x108 uM.
-  tiles: "1x1"          # Valid values: 1x1, 1x2, 2x2, 3x2, 4x2, 6x2 or 8x2
-
-  # Your top module name must start with "tt_um_". Make it unique by including your github username:
-  top_module:  "tt_um_example"
-
-  # List your project's source files here.
-  # Source files must be in ./src and you must list each source file separately, one per line.
-  # Don't forget to also update `PROJECT_SOURCES` in test/Makefile.
+  title:        "Two-Armed Bandit Analog-Equivalent Digital Chip"
+  author:       "vermiscore"
+  discord:      ""
+  description:  "Digital reimplementation of analog 2AB bandit circuit using Thompson sampling LFSR and HAC accumulator"
+  language:     "Verilog"
+  clock_hz:     50000000
+  tiles:        "1x1"
+  top_module:   "tt_um_2ab_bandit"
   source_files:
     - "project.v"
 
-# The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
-# This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
 pinout:
-  # Inputs
-  ui[0]: ""
-  ui[1]: ""
-  ui[2]: ""
-  ui[3]: ""
-  ui[4]: ""
-  ui[5]: ""
-  ui[6]: ""
-  ui[7]: ""
+  ui[0]: "d_A (Arm-A result 1=Win 0=Lose)"
+  ui[1]: "d_B (Arm-B result 1=Win 0=Lose)"
+  ui[2]: "cfg[0] (DELTA step LSB)"
+  ui[3]: "cfg[1]"
+  ui[4]: "cfg[2]"
+  ui[5]: "cfg[3] (DELTA step MSB)"
+  ui[6]: "seed_ld (LFSR seed load strobe)"
+  ui[7]: "seed_dat (LFSR seed serial data)"
+  uo[0]: "SELECT (1=Arm-A 0=Arm-B)"
+  uo[1]: "SELECT_N (complement)"
+  uo[2]: "PHASE (0=COMPARE 1=LEARN)"
+  uo[3]: "VALID (SELECT settled pulse)"
+  uo[4]: "V_th[8] (HAC debug)"
+  uo[5]: "V_th[9]"
+  uo[6]: "V_th[10]"
+  uo[7]: "V_th[11]"
+  uio[0]: "V_th[0] (HAC debug LSB)"
+  uio[1]: "V_th[1]"
+  uio[2]: "V_th[2]"
+  uio[3]: "V_th[3]"
+  uio[4]: "V_th[4]"
+  uio[5]: "V_th[5]"
+  uio[6]: "V_th[6]"
+  uio[7]: "V_th[7]"
 
-  # Outputs
-  uo[0]: ""
-  uo[1]: ""
-  uo[2]: ""
-  uo[3]: ""
-  uo[4]: ""
-  uo[5]: ""
-  uo[6]: ""
-  uo[7]: ""
-
-  # Bidirectional pins
-  uio[0]: ""
-  uio[1]: ""
-  uio[2]: ""
-  uio[3]: ""
-  uio[4]: ""
-  uio[5]: ""
-  uio[6]: ""
-  uio[7]: ""
-
-# Do not change!
 yaml_version: 6
