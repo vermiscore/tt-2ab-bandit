@@ -22,9 +22,9 @@ async def test_reset(dut):
     await ClockCycles(dut.clk, 2)
 
     # リセット後はSELECTが0か1のどちらか（不定にならないこと）
-    select = dut.uo_out.value & 0x01
+    select = int(dut.uo_out.value) & 0x01
     dut._log.info(f"SELECT after reset: {select}")
-    assert dut.uo_out.value is not None
+    assert int(dut.uo_out.value) is not None
     dut._log.info("Reset test passed")
 
 @cocotb.test()
@@ -51,7 +51,7 @@ async def test_convergence_B_wins(dut):
         dut.ui_in.value = (dA << 0) | (dB << 1)
         await ClockCycles(dut.clk, 1)
         if cy >= 100:
-            sel = dut.uo_out.value & 0x01
+            sel = int(dut.uo_out.value) & 0x01
             sel_counts[sel] += 1
 
     rate_B = sel_counts[0] / sum(sel_counts)
@@ -90,7 +90,7 @@ async def test_switch(dut):
         dut.ui_in.value = (dA << 0) | (dB << 1)
         await ClockCycles(dut.clk, 1)
         if cy >= 100:
-            sel = dut.uo_out.value & 0x01
+            sel = int(dut.uo_out.value) & 0x01
             sel_counts[sel] += 1
 
     rate_A = sel_counts[1] / sum(sel_counts)
